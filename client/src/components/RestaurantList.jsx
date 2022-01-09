@@ -40,7 +40,7 @@ const RestaurantList = () => {
   };
 
   const handleRestaurantSelect = (id) => {
-    navigate(`/restaurants/:id`);
+    navigate(`/restaurants/${id}`);
   }
 
   return (
