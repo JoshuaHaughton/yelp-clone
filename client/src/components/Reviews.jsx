@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import StarRating from './StarRating';
+
 
 
 const Reviews = ({ reviews }) => {
@@ -14,7 +15,7 @@ const Reviews = ({ reviews }) => {
       >
         <div className="card-header d-flex justify-content-between">
           <span>{review.name}</span>
-          <span><StarRating rating={review.rating}/></span>
+          <span><StarRating key={review.id} rating={review.rating}/></span>
         </div>
         <div className="card-body">
           <p className="card-text">{review.review}</p>

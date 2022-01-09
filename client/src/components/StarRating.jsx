@@ -7,7 +7,7 @@ const StarRating = ({rating}) => {
 
     if (i <= rating) {
 
-      stars.push(<i key = {i} className="fas fa-star text-warning"></i>);
+      stars.push(<i key={i} className="fas fa-star text-warning"></i>);
       
     } else if (i === Math.ceil(rating) && !Number.isInteger(rating)) {
 
