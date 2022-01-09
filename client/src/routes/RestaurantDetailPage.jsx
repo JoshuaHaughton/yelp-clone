@@ -29,6 +29,7 @@ const RestaurantDetailPage = () => {
     <div>{selectedRestaurant && (
       <>
       <h1 className="text-center display-1">{selectedRestaurant.restaurant.name}</h1>
+      
       <div className="mt-3">
         <Reviews reviews={selectedRestaurant.reviews} />
       </div>

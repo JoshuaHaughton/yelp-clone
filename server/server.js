@@ -88,6 +88,29 @@ app.post('/api/restaurants', async (req, res) => {
   }
 })
 
+app.post('/api/restaurants/:id/review', async (req, res) => {
+
+  try {
+
+    const newReview = await db.query(`
+    INSERT INTO reviews (restaurant_id, name, review, rating)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *`, [req.params.id, req.body.name, req.body.review, req.body.rating])
+
+    console.log(newReview.rows);
+
+    res.status(201).json({
+      status: "success",
+      data: {
+        review: newReview.rows[0]
+      }
+    })
+
+  } catch(err) {
+    res.status(500).send();
+  }
+})
+
 
 app.put('/api/restaurants/:id', async (req, res) => {
   console.log(req.body);
