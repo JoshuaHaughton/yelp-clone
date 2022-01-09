@@ -32,25 +32,28 @@ app.get('/api/restaurants/', async (req, res) => {
 })
 
 
-app.get('/api/restaurants/:restaurantId', async (req, res) => {
+app.get('/api/restaurants/:id', async (req, res) => {
   try {
 
-    const id = req.params.restaurantId;
+
+    const id = req.params.id;
+
+    console.log(id)
 
     const results = await db.query(`
     SELECT * FROM restaurants
     WHERE id = $1`, [id]);
 
-    res.send(results.rows[0]);
+    console.log(results)
 
     res.status(200).json({
       status: "success",
       results: results.rows.length,
       data: {
-        restaurants: results.rows[0]
+        restaurant: results.rows[0]
       }
     })
-    // req.restaurantId = results.rows[0]
+    // req.id = results.rows[0]
     //next()
   } catch(err) {
 
@@ -85,7 +88,7 @@ app.post('/api/restaurants', async (req, res) => {
 })
 
 
-app.put('/api/restaurants/:restaurantId', async (req, res) => {
+app.put('/api/restaurants/:id', async (req, res) => {
   console.log(req.body);
 
   try {
@@ -96,7 +99,7 @@ app.put('/api/restaurants/:restaurantId', async (req, res) => {
     location = $2,
     price_range = $3
     WHERE id = $4
-    RETURNING *`, [req.body.name, req.body.location, req.body.price_range, req.params.restaurantId])
+    RETURNING *`, [req.body.name, req.body.location, req.body.price_range, req.params.id])
 
     res.status(200).json({
       status: "success",
