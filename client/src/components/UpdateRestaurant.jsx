@@ -11,13 +11,9 @@ const UpdateRestaurant = (props) => {
   const [location, setLocation] = useState("");
   const [priceRange, setPriceRange] = useState("");
 
-  console.log(id);
-  console.log(restaurants);
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await RestaurantFinder.get(`/${id}`);
-      console.log(response.data.data);
       setName(response.data.data.restaurant.name)
       setLocation(response.data.data.restaurant.location)
       setPriceRange(response.data.data.restaurant.price_range)
@@ -33,7 +29,6 @@ const UpdateRestaurant = (props) => {
       location,
       price_range: priceRange
     })
-    console.log(updatedRestaurant);
     navigate('/')
   }
 
