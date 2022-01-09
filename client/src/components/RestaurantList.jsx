@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import RestaurantFinder from '../apis/RestaurantFinder';
 import { RestaurantsContext } from '../context/RestaurantsContext';
 import { useNavigate } from "react-router-dom";
+import StarRating from './StarRating';
 
 const RestaurantList = () => {
   const { restaurants, setRestaurants } = useContext(RestaurantsContext);
@@ -43,6 +44,19 @@ const RestaurantList = () => {
     navigate(`/restaurants/${id}`);
   }
 
+  const renderRating = (restaurant) => {
+    if (restaurant.count < 1) {
+      return <span className="text-warning">0 Reviews</span>
+    }
+
+    return (
+      <>  
+        <StarRating rating={restaurant.average_rating} />
+        <span className="text-warning ml-1">({restaurant.count})</span>
+      </>
+          );
+  }
+
   return (
     <div className="list-group">
       <table className="table table-hover table-dark">
@@ -58,6 +72,7 @@ const RestaurantList = () => {
         </thead>
         <tbody>
           {restaurants && restaurants.map(restaurant => {
+
             return (
               <tr 
               onClick={() => handleRestaurantSelect(restaurant.id)} 
@@ -65,7 +80,7 @@ const RestaurantList = () => {
                 <td>{restaurant.name}</td>
                 <td>{restaurant.location}</td>
                 <td>{"$".repeat(restaurant.price_range)}</td>
-                <td>reviews</td>
+                <td>{renderRating(restaurant)}</td>
                 <td>
                   <button onClick={(e) => handleUpdate(e, restaurant.id)}className="btn btn-warning">Update</button>
                 </td>
@@ -75,14 +90,6 @@ const RestaurantList = () => {
               </tr>
             )
           })}
-          {/* <tr>
-            <td>Osmows</td>
-            <td>Toronto</td>
-            <td>$$$</td>
-            <td>Rating</td>
-            <td><button className="btn btn-warning">Update</button></td>
-            <td><button className="btn btn-danger">Delete</button></td>
-          </tr> */}
         </tbody>
       </table>
     </div>
