@@ -11,12 +11,9 @@ const AddReview = () => {
   const location = useLocation();
 
   const params = useParams();
-  console.log("params",params.id)
 
   const handleSubmitReview = async (e) => {
     e.preventDefault();
-
-    console.log(Number(params.id));
     
     try {
       const response = await RestaurantFinder.post(`/${Number(params.id)}/review`, {
@@ -26,7 +23,6 @@ const AddReview = () => {
       })
       navigate('/')
       navigate(location.pathname)
-      console.log(response);
 
     } catch(err) {
 
